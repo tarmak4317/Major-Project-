@@ -140,7 +140,10 @@ void loop()
       pause = !pause;
       digitalWrite(LED, pause ? LOW : HIGH);
       delay(5000);
-      sec_val -= 5;
+      if(pause == false)
+      {
+        sec_val -= 5;
+      }
     }
   }
   digitalWrite(row4, LOW);
