@@ -129,16 +129,33 @@ void loop()
   }
   int sec_val = (((time_num[0] * 10) + (time_num[1])) * 60) + (time_num[2] * 10) + time_num[3];
   digitalWrite(LED, HIGH);
+  digitalWrite(row4, HIGH);
   while(true)
   {
     delay(1000);
     if(sec_val == 0)
     {
       digitalWrite(LED, LOW);
+      break;
     }
     if(!pause)
     {
       sec_val--;
+      time_num[0] = (sec_val / 60) / 10;
+      time_num[1] = (sec_val / 60) % 10;
+      time_num[2] = (sec_val % 60) / 10;
+      time_num[3] = (sec_val % 60) % 10;
+    }
+    else
+    {
+      digitalWrite(LED, LOW);
+      delay(5000);
+    }
+    if(digitalRead(column1))
+    {
+      pause = !pause;
+      delay(5000);
     }
   }
+  digitalWrite(row4, LOW);
 }
