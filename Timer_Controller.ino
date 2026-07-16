@@ -37,50 +37,34 @@ char keyboard() {       //KEYBOARD READ
     //SCAN ROW1
     digitalWrite(row1, HIGH);
     delay(10);
-    if(digitalRead(column1))
-      return '1';
-    if(digitalRead(column2))
-      return '2';
-    if(digitalRead(column3))
-      return '3';
-    if(digitalRead(column4))
-      return 'A';
+    if(digitalRead(column1)) { digitalWrite(row1, LOW); return '1'; }
+    if(digitalRead(column2)) { digitalWrite(row1, LOW); return '2'; }
+    if(digitalRead(column3)) { digitalWrite(row1, LOW); return '3'; }
+    if(digitalRead(column4)) { digitalWrite(row1, LOW); return 'A'; }
     digitalWrite(row1, LOW);
     //SCAN ROW2
     digitalWrite(row2, HIGH);
     delay(10);
-    if(digitalRead(column1))
-      return '4';   
-    if(digitalRead(column2))
-      return '5';
-    if(digitalRead(column3))
-      return '6';
-    if(digitalRead(column4))
-      return 'B';
+    if(digitalRead(column1)) { digitalWrite(row2, LOW); return '4'; }
+    if(digitalRead(column2)) { digitalWrite(row2, LOW); return '5'; }
+    if(digitalRead(column3)) { digitalWrite(row2, LOW); return '6'; }
+    if(digitalRead(column4)) { digitalWrite(row2, LOW); return 'B'; }
     digitalWrite(row2, LOW);
     //SCAN ROW3
     digitalWrite(row3, HIGH);
     delay(10);
-    if(digitalRead(column1))
-      return '7';
-    if(digitalRead(column2))
-      return '8';
-    if(digitalRead(column3))
-      return '9';
-    if(digitalRead(column4))
-      return 'C';
+    if(digitalRead(column1)) { digitalWrite(row3, LOW); return '7'; }
+    if(digitalRead(column2)) { digitalWrite(row3, LOW); return '8'; }
+    if(digitalRead(column3)) { digitalWrite(row3, LOW); return '9'; }
+    if(digitalRead(column4)) { digitalWrite(row3, LOW); return 'C'; }
     digitalWrite(row3, LOW);
     //SCAN ROW4
     digitalWrite(row4, HIGH);
     delay(10);
-    if(digitalRead(column1))
-      return '*';
-    if(digitalRead(column2))
-      return '0';
-    if(digitalRead(column3))
-      return '#';
-    if(digitalRead(column4))
-      return 'D';
+    if(digitalRead(column1)) { digitalWrite(row4, LOW); return '*'; }
+    if(digitalRead(column2)) { digitalWrite(row4, LOW); return '0'; }
+    if(digitalRead(column3)) { digitalWrite(row4, LOW); return '#'; }
+    if(digitalRead(column4)) { digitalWrite(row4, LOW); return 'D'; }
     digitalWrite(row4, LOW);
   }
 
@@ -98,7 +82,7 @@ void val_ent()        //ENTER FOUR DIGIT VALUE
     in = keyboard();
     if(isdigit(in))
     {
-      time_num[i] = in;
+      time_num[i] = in - '0';
       showTime(time_num);
     }
     else
@@ -121,10 +105,10 @@ void loop()
   in = keyboard();
   switch(in)
   {
-    case 'A':setInit(1, 0, 0, 0);
-    case 'B':setInit(2, 0, 0, 0);
-    case 'C':setInit(3, 0, 0, 0);
-    case 'D':setInit(4, 0, 0, 0);
+    case 'A': setInit(1, 0, 0, 0); break;
+    case 'B': setInit(2, 0, 0, 0); break;
+    case 'C': setInit(3, 0, 0, 0); break;
+    case 'D': setInit(4, 0, 0, 0); break;
     default: val_ent();
   }
   int sec_val = (((time_num[0] * 10) + (time_num[1])) * 60) + (time_num[2] * 10) + time_num[3];
@@ -145,15 +129,16 @@ void loop()
       time_num[1] = (sec_val / 60) % 10;
       time_num[2] = (sec_val % 60) / 10;
       time_num[3] = (sec_val % 60) % 10;
+      showTime(time_num);
     }
     else
     {
-      digitalWrite(LED, LOW);
       delay(5000);
     }
     if(digitalRead(column1))
     {
       pause = !pause;
+      digitalWrite(LED, pause ? LOW : HIGH);
       delay(5000);
     }
   }
