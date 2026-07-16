@@ -128,4 +128,16 @@ void loop()
   }
   int sec_val = (((time_num[0] * 10) + (time_num[1])) * 60) + (time_num[2] * 10) + time_num[3];
   digitalWrite(LED, HIGH);
+  while()
+  {
+    delay(1000);
+    if(sec_val == 0)
+    {
+      digitalWrite(LED, LOW);
+    }
+    if(!pause)
+    {
+      sec_val--;
+    }
+  }
 }
