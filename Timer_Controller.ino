@@ -6,6 +6,7 @@ int CLK, DIO; //DISPLAY CONTROLS
 int LED = 13; //LED CONTROL PIN
 int time_num[4] = {0, 0, 0, 0}; //TIMER VALS
 char in; //INPUT CHARACTER
+bool pause = false;
 TM1637Display display(CLK, DIO);
 void setup() {
   row1 = 1;
@@ -128,7 +129,7 @@ void loop()
   }
   int sec_val = (((time_num[0] * 10) + (time_num[1])) * 60) + (time_num[2] * 10) + time_num[3];
   digitalWrite(LED, HIGH);
-  while()
+  while(true)
   {
     delay(1000);
     if(sec_val == 0)
